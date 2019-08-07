@@ -30,16 +30,18 @@ impl Validator {
             // This block is ready to go in the DAG
             let mut q = VecDeque::new();
             q.push_back(b);
+
+            // As long as there are more blocks ready to go in the dag, keep iterating
             while !q.is_empty() {
                 if let Some(b) = q.pop_front() {
                     self.dag.insert(b);
                 }
                 let mut satisfied = self.pending.iter().filter(|b| b.parents.is_subset(&self.dag)).collect::<VecDeque<_>>();
-                q.append(&mut satisfied);
+                q.append(&mut satisfied); // This line doesn't compile
             }
         }
         else {
-            // Not all parents are known, so
+            // Not all parents are in the dag, so
             // Add the block to the pending set
             self.pending.insert(b);
         }
