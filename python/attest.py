@@ -29,6 +29,8 @@ class Validator:
         return template.format(self.name, len(self.dag), len(self.pendingBlocks), len(self.waitingEvents))
 
     def receive_block(self, b):
+        #TODO This is where to remove events from the waiting set when htey come in
+        # blocks over the network
         if b.parents <= self.dag:
             # This block is ready to go in the dag
             satisfied = {b}
@@ -106,6 +108,7 @@ if __name__ == "__main__":
     e3 = Event([e1],     "event three")
     e4 = Event([e1, e2], "event four")
     e5 = Event([e4, e2], "event five")
+    # Lookup RC reference counting in rust
 
     # Send events 1 and 2 to both validators
     alice.receive_event(e1)

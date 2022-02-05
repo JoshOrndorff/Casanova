@@ -7,6 +7,7 @@ use std::collections::VecDeque;
 pub struct Event {
     //TODO what actually should go in the events?
     id: u32,
+    parents: Set<Events>,
 }
 
 #[derive(Eq, PartialEq, Debug, Ord, PartialOrd)]
